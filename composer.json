@@ -1,0 +1,41 @@
+{
+  "name": "it-bens/object-transformer-bundle",
+  "description": "Bundle that provides the object-transformer package via Symfony services.",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Martin Bens",
+      "email": "martin.bens@it-bens.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.3",
+    "it-bens/object-transformer": "^0.1",
+    "symfony/config": "^4.4|^5.0",
+    "symfony/dependency-injection": "^4.4|^5.0",
+    "symfony/http-kernel": "^4.4|^5.0"
+  },
+  "require-dev": {
+    "captainhook/plugin-composer": "^5.3",
+    "phpunit/phpunit": "^7.5",
+    "roave/security-advisories": "dev-latest",
+    "it-bens/object-transformer-test-utilities": "*@dev",
+    "symfony/polyfill-php72": "^1.23"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": { "ITB\\ObjectTransformerBundle\\": "src/" }
+  },
+  "autoload-dev": {
+    "psr-4": { "ITB\\ObjectTransformerBundle\\Tests\\": "tests/" }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "vendor/bin/captainhook install -f -s"
+    ]
+  }
+}
