@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace ITB\ObjectTransformerBundle\Tests;
 
 use ITB\ObjectTransformerBundle\ITBObjectTransformerBundle;
-use ITB\ObjectTransformerTestUtilities\DummyTransformer;
+use ITB\ObjectTransformerBundle\Tests\Mock\DummyTransformer;
+use ITB\ObjectTransformerBundle\Tests\Mock\DummyTransformerReverse;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -20,11 +21,13 @@ final class ITBObjectTransformerKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(static function(ContainerBuilder $container) {
-            $definition = new Definition(DummyTransformer::class);
-            $definition->setAutoconfigured(true);
-
-            $container->addDefinitions(['itb_object_transformer.dummy_transformer' => $definition]);
+        $loader->load(static function (ContainerBuilder $container) {
+            $container->addDefinitions(
+                [
+                    'itb_object_transformer.dummy_transformer' => (new Definition(DummyTransformer::class))->setAutoconfigured(true),
+                    'itb_object_transformer.dummy_transformer_reverse' => (new Definition(DummyTransformerReverse::class))->setAutoconfigured(true)
+                ]
+            );
         });
     }
 
