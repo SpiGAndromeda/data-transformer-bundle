@@ -10,10 +10,14 @@ use ITB\ObjectTransformerBundle\Tests\Mock\DummyTransformerReverse;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 final class ITBObjectTransformerKernel extends Kernel
 {
+    /**
+     * @return BundleInterface[]
+     */
     public function registerBundles(): array
     {
         return [new ITBObjectTransformerBundle()];
