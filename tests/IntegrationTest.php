@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace ITB\ObjectTransformerBundle\Tests;
 
+use ITB\ObjectTransformerBundle\Tests\Mock\Object1;
+use ITB\ObjectTransformerBundle\Tests\Mock\Object2;
 use PHPUnit\Framework\TestCase;
 use ITB\ObjectTransformer\TransformationMediator;
-use ITB\ObjectTransformerTestUtilities\Object1;
-use ITB\ObjectTransformerTestUtilities\Object2;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class IntegrationTest extends TestCase
 {
     /** @var ContainerInterface $container */
-    private $container;
+    private ContainerInterface $container;
 
     public function setUp(): void
     {
