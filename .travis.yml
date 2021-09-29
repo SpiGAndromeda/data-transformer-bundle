@@ -5,23 +5,35 @@ language: php
 os: linux
 dist: xenial
 
+cache:
+  apt: true
+  directories:
+    - '$HOME/.composer/cache'
+    - 'vendor'
+
 env:
   global:
     - PHPUNIT_FLAGS="-v"
     - XDEBUG_MODE="coverage"
 
 install:
-  - travis_retry composer update -n --prefer-dist --prefer-stable
+  - 'travis_retry composer require symfony/config:${SYMFONY_VERSION} symfony/dependency-injection:${SYMFONY_VERSION} symfony/http-kernel:${SYMFONY_VERSION}'
+  - travis_retry composer -n update --prefer-dist -o
 
 script:
-  - composer validate --strict --no-check-lock
-  - vendor/bin/phpunit -v -c phpunit.xml.dist --coverage-clover tests/logs/clover.xml
-  - vendor/bin/phpstan analyse src tests --level max
+  - travis_retry composer validate --strict --no-check-lock
+  - travis_retry vendor/bin/phpunit -v -c phpunit.xml.dist --coverage-clover tests/logs/clover.xml
+  - travis_retry vendor/bin/phpstan analyse src tests --level max
 
 after_success:
-  - composer require --no-progress --no-scripts --no-plugins php-coveralls/php-coveralls -W
+  - travis_retry composer require --no-progress --no-scripts --no-plugins php-coveralls/php-coveralls -W
   - travis_retry php vendor/bin/php-coveralls -v
 
 jobs:
   include:
     - php: 8.0
+      env:
+        - SYMFONY_VERSION=4.4.*
+    - php: 8.0
+      env:
+        - SYMFONY_VERSION=5.3.*
